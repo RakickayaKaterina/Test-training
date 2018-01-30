@@ -1,10 +1,7 @@
 package com.senla.testing.rakickaya.pages;
 
 import com.senla.testing.rakickaya.data.UserCredentials;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -28,9 +25,10 @@ public class LoginPage extends Page{
     private WebElement clearAllButton;
     private WebElement rememberCheckbox;
 
+
     public LoginPage(WebDriver driver) {
         this.driver = driver;
-        driver.get(URL_PAGE);
+        driver.get(URL_PAGE +"#/login");
         driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
         findAllElements();
         driverWait = new WebDriverWait(driver,5);
@@ -43,6 +41,7 @@ public class LoginPage extends Page{
         submitButton = driver.findElement(By.id(BUTTON_LOGIN));
         clearAllButton = driver.findElement(By.id(BUTTON_RESET));
         rememberCheckbox = driver.findElement(By.id(CHECKBOXES_REMEMBER));
+
 
     }
     public LoginPage inputUserCredentials(UserCredentials user){
@@ -65,9 +64,18 @@ public class LoginPage extends Page{
         return  this;
 
     }
+    public boolean existLogo(){
+      try {
+          WebElement logo = driver.findElement(By.xpath("id(\"main\")/section[1]/div[1]/div[1]/table[1]/tbody[1]/tr[1]/td[1]/img[1]"));
+          return  true;
+      }catch (NoSuchElementException e){
+          return  false;
+      }
+    }
 
-    public LoginPage getNewInstance(){
-        return  new LoginPage(driver);
+    public void toBackState(){
+        driver.get(URL_PAGE);
+        findAllElements();
     }
     public boolean isFieldsEmpty(){
         return usernameField.getText().isEmpty() && passwordField.getText().isEmpty();

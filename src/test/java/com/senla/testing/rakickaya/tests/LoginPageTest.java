@@ -27,6 +27,12 @@ public class LoginPageTest {
     }
 
     @Test
+    public void findLogo() {
+        Assert.assertTrue(loginPage.existLogo());
+    }
+
+
+    @Test
     public void loginPositive() {
         loginPage.inputUserCredentials(new UserCredentials("petia", "empl"))
                 .setSubmitButton();
@@ -97,7 +103,7 @@ public class LoginPageTest {
 
     @AfterMethod
     public void back() {
-        loginPage = loginPage.getNewInstance();
+        loginPage.toBackState();
     }
 
 
