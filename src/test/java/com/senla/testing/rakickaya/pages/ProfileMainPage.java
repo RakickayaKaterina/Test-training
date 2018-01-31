@@ -29,13 +29,13 @@ public class ProfileMainPage extends Page {
     private WebElement profileLabel;
     private WebElement settingLink;
 
-    private Map<String, List<List<WebElement>>> tableMap;
+    private HashMap<String, Map<String, WebElement>> tableMap;
 
     public ProfileMainPage(WebDriver driver) {
         this.driver = driver;
         driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
         driverWait = new WebDriverWait(driver, 5);
-        tableMap = new HashMap<String, List<List<WebElement>>>();
+        tableMap = new HashMap<String, Map<String, WebElement>>();
         findAllElements();
 
     }
@@ -63,28 +63,28 @@ public class ProfileMainPage extends Page {
     private void registerTable(WebElement table) {
         WebElement nameTable = table.findElement(By.xpath("thead/tr"));
         String titleTable = nameTable.getText();
-        List<List<WebElement>> tableValue = new ArrayList<List<WebElement>>();
-
-
         List<WebElement> tableRows = table.findElements(By.xpath("tbody/tr"));
+        Map<String,WebElement> cells= new HashMap<String, WebElement>();
 
         for (WebElement row : tableRows) {
-            List<WebElement> cells = row.findElements(By.tagName("td"));
-            tableValue.add(cells);
+            List<WebElement> rowElements = row.findElements(By.tagName("td"));
+            cells.put(rowElements.get(0).getText(),rowElements.get(1));
         }
-
-        tableMap.put(titleTable, tableValue);
+        tableMap.put(titleTable, cells);
     }
 
     public CalendarPopupPage setCalendarPopup() {
-        tableMap.get("Общая информация").get(5).get(1).findElement(By.xpath("a[1]")).click();
+        tableMap.get("Общая информация").get("Календарь").findElement(By.xpath("a[1]")).click();
         driverWait.until(ExpectedConditions.textToBe(By.xpath("id(\"userCalendarTitle\")"), "User Calendar"));
         return new CalendarPopupPage(driver);
     }
 
     public void toBackState() {
         driver.get(URL_PAGE + "#/profile");
-        tableMap = new HashMap<String, List<List<WebElement>>>();
+        tableMap = new HashMap<String, Map<String, WebElement>>();
         findAllElements();
+    }
+    public String getTextFrom(String nameTable, String nameRow){
+        return tableMap.get(nameTable).get(nameRow).findElement(By.xpath("input")).getText();
     }
 }

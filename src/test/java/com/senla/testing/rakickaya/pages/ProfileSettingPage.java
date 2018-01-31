@@ -125,14 +125,13 @@ public class ProfileSettingPage extends Page{
         return  new ProfileMainPage(driver);
     }
 
-    public ProfileSettingPage save(){
+    public ProfileMainPage save(){
         saveButton.click();
-        return this;
-    }
-
-    public String getTextFrom(String nameTable, String nameRow){
-        return tableMap.get(nameTable).get(nameRow).findElement(By.xpath("input")).getText();
+        return new ProfileMainPage(driver);
     }
 
 
+    public String getEmail() {
+        return tableMap.get("Информация профиля").get("Email").findElement(By.xpath("input")).getText();
+    }
 }
