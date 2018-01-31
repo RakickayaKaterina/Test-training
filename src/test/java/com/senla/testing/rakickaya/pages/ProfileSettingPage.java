@@ -61,7 +61,7 @@ public class ProfileSettingPage extends Page{
         contactInfoTable = driver.findElement(By.xpath("id(\"main\")/section[1]/div[2]/div[1]/div[2]/div[1]/div[2]/form[1]/table[2]"));
         profileInfoTable = driver.findElement(By.xpath("id(\"main\")/section[1]/div[2]/div[1]/div[2]/div[1]/div[2]/form[1]/table[1]"));
         userImage = driver.findElement(By.xpath("id(\"main\")/section[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/img[1]"));
-        selectImageButton = driver.findElement(By.xpath("id(\"main\")/section[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[3]/span[1]"));
+        selectImageButton = driver.findElement(By.xpath("id(\"main\")/section[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]  /div[3]/span[1]"));
         profileLabel = driver.findElement(By.xpath("id(\"main\")/section[1]/div[2]/div[1]/div[1]/span[1]"));
         settingLink = driver.findElement(By.xpath("id(\"main\")/section[1]/div[2]/div[1]/div[1]/div[1]/a[1]/span[1]"));
     }
@@ -137,5 +137,6 @@ public class ProfileSettingPage extends Page{
     public String getDate() {
         return tableMap.get("Контактная информация").get("Дата Рождения").findElement(By.xpath("input")).getText();
     }
+
 
 }

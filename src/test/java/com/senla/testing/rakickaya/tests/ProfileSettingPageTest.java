@@ -98,16 +98,45 @@ public class ProfileSettingPageTest {
 
     @Test
     public void savePhoneNumber(){
-        ProfileMainPage profileMainPage = profileSettingPage.inputBirthDate("8-029-888-24-16").save();
+        ProfileMainPage profileMainPage = profileSettingPage.inputNumber("8-029-888-24-16").save();
         Assert.assertEquals(profileMainPage.getTextFrom("Контактная информация", "Телефон"), "8-029-888-24-16");
     }
     @Test
     public void saveSkype(){
-        ProfileMainPage profileMainPage = profileSettingPage.inputBirthDate("Kate Rakickaya").save();
+        ProfileMainPage profileMainPage = profileSettingPage.inputSkype("Kate Rakickaya").save();
         Assert.assertEquals(profileMainPage.getTextFrom("Контактная информация", "Skype"), "Kate Rakickaya");
     }
 
+    @Test
+    public void inputEmptyName(){
+        profileSettingPage.inputName("");
+        //TODO alert message
 
+    }
+    @Test
+    public void inputEmptyLastName(){
+        profileSettingPage.inputLastName("");
+        //TODO alert message
+
+    }
+    @Test
+    public void saveName(){
+        ProfileMainPage profileMainPage = profileSettingPage.inputName("Kate").save();
+        Assert.assertEquals(profileMainPage.getFullName().contains("Kate"), "Kate");
+
+    }
+    @Test
+    public void saveMiddleName(){
+        ProfileMainPage profileMainPage = profileSettingPage.inputMiddleName("Dmitrievna").save();
+        Assert.assertEquals(profileMainPage.getFullName().contains("Dmitrievna"), "Dmitrievna");
+
+    }
+    @Test
+    public void saveLastName(){
+        ProfileMainPage profileMainPage = profileSettingPage.inputLastName("Rakickaya").save();
+        Assert.assertEquals(profileMainPage.getFullName().contains("Rakickaya"), "Rakickaya");
+
+    }
     @Test
     public void openMainProfilePage() {
         profileSettingPage.followSettingLink();

@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,11 +63,11 @@ public class ProfileMainPage extends Page {
         WebElement nameTable = table.findElement(By.xpath("thead/tr"));
         String titleTable = nameTable.getText();
         List<WebElement> tableRows = table.findElements(By.xpath("tbody/tr"));
-        Map<String,WebElement> cells= new HashMap<String, WebElement>();
+        Map<String, WebElement> cells = new HashMap<String, WebElement>();
 
         for (WebElement row : tableRows) {
             List<WebElement> rowElements = row.findElements(By.tagName("td"));
-            cells.put(rowElements.get(0).getText(),rowElements.get(1));
+            cells.put(rowElements.get(0).getText(), rowElements.get(1));
         }
         tableMap.put(titleTable, cells);
     }
@@ -84,7 +83,12 @@ public class ProfileMainPage extends Page {
         tableMap = new HashMap<String, Map<String, WebElement>>();
         findAllElements();
     }
-    public String getTextFrom(String nameTable, String nameRow){
+
+    public String getTextFrom(String nameTable, String nameRow) {
         return tableMap.get(nameTable).get(nameRow).findElement(By.xpath("input")).getText();
+    }
+
+    public String getFullName() {
+        return  usernameLabel.getText();
     }
 }
