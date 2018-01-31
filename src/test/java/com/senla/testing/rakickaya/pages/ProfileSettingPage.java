@@ -134,4 +134,8 @@ public class ProfileSettingPage extends Page{
     public String getEmail() {
         return tableMap.get("Информация профиля").get("Email").findElement(By.xpath("input")).getText();
     }
+    public String getDate() {
+        return tableMap.get("Контактная информация").get("Дата Рождения").findElement(By.xpath("input")).getText();
+    }
+
 }
