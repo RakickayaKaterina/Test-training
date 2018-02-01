@@ -5,11 +5,9 @@ import com.senla.testing.rakickaya.pages.LoginPage;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import static com.senla.testing.rakickaya.pages.LoginPage.URL_PAGE;
 
@@ -27,8 +25,9 @@ public class LoginPageTest {
     public void initialize() {
         System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
         driver = new ChromeDriver();
-        loginPage = new LoginPage(driver);
+        loginPage = PageFactory.initElements(driver,LoginPage.class);
     }
+
 
     @Test
     public void findLogo() {
