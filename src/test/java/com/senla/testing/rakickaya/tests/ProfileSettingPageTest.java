@@ -13,8 +13,24 @@ import org.testng.annotations.Test;
 
 
 public class ProfileSettingPageTest {
-    public static final String CORRECT_EMAIL_FORMAT = "\"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$\"";
-    public static final String CORRECT_DATE_FORMAT = "((19|20)\\d\\d)\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])";
+    private static final String CORRECT_EMAIL_FORMAT = "\"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$\"";
+    private static final String CORRECT_DATE_FORMAT = "((19|20)\\d\\d)\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])";
+    private static final String VALID_EMAIL = "rakickayakate@mail.ru";
+    private static final String EMAIL_WITHOUT_COMMERCIAL_AT = "rakickayakatemail.ru";
+    private static final String EMAIL_WITHOUT_DOMAIN_PART = "bvkld@fdsfs";
+    private static final String EMAIL_WITHOUT_NAME = "@fdsfs.ru";
+    private static final String CONTACT_INFO = "Контактная информация";
+    private static final String EMAIL = "Email";
+    private static final String VALID_DATE = "1997-05-10";
+    private static final String INVALID_DATE = "Cat";
+    private static final String VALID_PHONE_NUMBER = "8-029-888-24-16";
+    private static final String PHONE_NUMBER = "Телефон";
+    private static final String VALID_SKYPE = "Kate Rakickaya";
+    private static final String SKYPE = "Skype";
+    private static final String EMPTY_STRING = "";
+    private static final String VALID_NAME = "Kate";
+    private static final String VALID_MIDDLE_NAME = "Dmitrievna";
+    private static final String VALID_LAST_NAME = "Rakickaya";
     private WebDriver driver;
     private ProfileSettingPage profileSettingPage;
 
@@ -27,7 +43,7 @@ public class ProfileSettingPageTest {
 
     @Test
     public void inputValidEmail() {
-        profileSettingPage.inputEmail("rakickayakate@mail.ru");
+        profileSettingPage.inputEmail(VALID_EMAIL);
         String email = profileSettingPage.getEmail();
         boolean isCorrectEmail = email.matches(CORRECT_EMAIL_FORMAT);
         if (!isCorrectEmail) {
@@ -39,7 +55,7 @@ public class ProfileSettingPageTest {
 
     @Test
     public void inputEmailWithoutCommercialAt() {
-        profileSettingPage.inputEmail("rakickayakatemail.ru");
+        profileSettingPage.inputEmail(EMAIL_WITHOUT_COMMERCIAL_AT);
         String email = profileSettingPage.getEmail();
         boolean isCorrectEmail = email.matches(CORRECT_EMAIL_FORMAT);
         if (!isCorrectEmail) {
@@ -50,7 +66,7 @@ public class ProfileSettingPageTest {
 
     @Test
     public void inputEmailWithoutDomainPart() {
-        profileSettingPage.inputEmail("bvkld@fdsfs");
+        profileSettingPage.inputEmail(EMAIL_WITHOUT_DOMAIN_PART);
         String email = profileSettingPage.getEmail();
         boolean isCorrectEmail = email.matches(CORRECT_EMAIL_FORMAT);
         if (!isCorrectEmail) {
@@ -60,7 +76,7 @@ public class ProfileSettingPageTest {
 
     @Test
     public void inputEmailWithoutName() {
-        profileSettingPage.inputEmail("@fdsfs.ru");
+        profileSettingPage.inputEmail(EMAIL_WITHOUT_NAME);
         String email = profileSettingPage.getEmail();
         boolean isCorrectEmail = email.matches(CORRECT_EMAIL_FORMAT);
         if (!isCorrectEmail) {
@@ -70,14 +86,14 @@ public class ProfileSettingPageTest {
 
     @Test
     public void saveEmail() {
-        ProfileMainPage profileMainPage = profileSettingPage.inputEmail("rakickaya@mail.ru").save();
-        Assert.assertEquals(profileMainPage.getTextFrom("Контактная информация", "Email"), "rakickaya@mail.ru");
+        ProfileMainPage profileMainPage = profileSettingPage.inputEmail(VALID_EMAIL).save();
+        Assert.assertEquals(profileMainPage.getTextFrom(CONTACT_INFO, EMAIL), VALID_EMAIL);
 
     }
 
     @Test
     public void inputValidDate() {
-        profileSettingPage.inputBirthDate("1997-05-10");
+        profileSettingPage.inputBirthDate(VALID_DATE);
         String date = profileSettingPage.getDate();
         boolean isCorrectDate = date.matches(CORRECT_DATE_FORMAT);
         if (!isCorrectDate) {
@@ -88,7 +104,7 @@ public class ProfileSettingPageTest {
 
     @Test
     public void inputInvalidDate() {
-        profileSettingPage.inputBirthDate("Cat");
+        profileSettingPage.inputBirthDate(INVALID_DATE);
         String date = profileSettingPage.getDate();
         boolean isCorrectDate = date.matches(CORRECT_DATE_FORMAT);
         if (!isCorrectDate) {
@@ -97,46 +113,52 @@ public class ProfileSettingPageTest {
     }
 
     @Test
-    public void savePhoneNumber(){
-        ProfileMainPage profileMainPage = profileSettingPage.inputNumber("8-029-888-24-16").save();
-        Assert.assertEquals(profileMainPage.getTextFrom("Контактная информация", "Телефон"), "8-029-888-24-16");
-    }
-    @Test
-    public void saveSkype(){
-        ProfileMainPage profileMainPage = profileSettingPage.inputSkype("Kate Rakickaya").save();
-        Assert.assertEquals(profileMainPage.getTextFrom("Контактная информация", "Skype"), "Kate Rakickaya");
+    public void savePhoneNumber() {
+        ProfileMainPage profileMainPage = profileSettingPage.inputNumber(VALID_PHONE_NUMBER).save();
+        Assert.assertEquals(profileMainPage.getTextFrom(CONTACT_INFO, PHONE_NUMBER), VALID_PHONE_NUMBER);
     }
 
     @Test
-    public void inputEmptyName(){
-        profileSettingPage.inputName("");
+    public void saveSkype() {
+        ProfileMainPage profileMainPage = profileSettingPage.inputSkype(VALID_SKYPE).save();
+        Assert.assertEquals(profileMainPage.getTextFrom(CONTACT_INFO, SKYPE), VALID_SKYPE);
+    }
+
+    @Test
+    public void inputEmptyName() {
+        profileSettingPage.inputName(EMPTY_STRING);
         //TODO alert message
 
     }
+
     @Test
-    public void inputEmptyLastName(){
-        profileSettingPage.inputLastName("");
+    public void inputEmptyLastName() {
+        profileSettingPage.inputLastName(EMPTY_STRING);
         //TODO alert message
 
     }
+
     @Test
-    public void saveName(){
-        ProfileMainPage profileMainPage = profileSettingPage.inputName("Kate").save();
-        Assert.assertEquals(profileMainPage.getFullName().contains("Kate"), "Kate");
+    public void saveName() {
+        ProfileMainPage profileMainPage = profileSettingPage.inputName(VALID_NAME).save();
+        Assert.assertEquals(profileMainPage.getFullName().contains(VALID_NAME), VALID_NAME);
 
     }
+
     @Test
-    public void saveMiddleName(){
-        ProfileMainPage profileMainPage = profileSettingPage.inputMiddleName("Dmitrievna").save();
-        Assert.assertEquals(profileMainPage.getFullName().contains("Dmitrievna"), "Dmitrievna");
+    public void saveMiddleName() {
+        ProfileMainPage profileMainPage = profileSettingPage.inputMiddleName(VALID_MIDDLE_NAME).save();
+        Assert.assertEquals(profileMainPage.getFullName().contains(VALID_MIDDLE_NAME), VALID_MIDDLE_NAME);
 
     }
+
     @Test
-    public void saveLastName(){
-        ProfileMainPage profileMainPage = profileSettingPage.inputLastName("Rakickaya").save();
-        Assert.assertEquals(profileMainPage.getFullName().contains("Rakickaya"), "Rakickaya");
+    public void saveLastName() {
+        ProfileMainPage profileMainPage = profileSettingPage.inputLastName(VALID_LAST_NAME).save();
+        Assert.assertEquals(profileMainPage.getFullName().contains(VALID_LAST_NAME), VALID_LAST_NAME);
 
     }
+
     @Test
     public void openMainProfilePage() {
         profileSettingPage.followSettingLink();

@@ -30,7 +30,7 @@ public class LoginPage extends Page{
     public LoginPage(WebDriver driver) {
         this.driver = driver;
         driver.get(URL_PAGE +"#/login");
-        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         findAllElements();
         driverWait = new WebDriverWait(driver,5);
 

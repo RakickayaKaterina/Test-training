@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ProfileMainPage extends Page {
 
+    public static final String ACTIVITY = "Активный";
     private static final String URL_PAGE = "http://86.57.161.116:10008/";
     private static final String SETTING_LINK_PATH = "//*[@id=\"main\"]/section/div[2]/div/div[1]/div/a";
     private static final String PROFILE_LABEL_PATH = "//*[@id=\"main\"]/section/div[2]/div/div[1]/span";
@@ -28,6 +29,23 @@ public class ProfileMainPage extends Page {
     private static final String CALENDAR = "Календарь";
     private static final String CALENDAR_PATH = "//*[@id=\"userCalendarTitle\"]";
     private static final String USER_CALENDAR_NAME = "User Calendar";
+    private static final String CONTACT_INFO = "Контактная информация";
+    private static final String EMAIL = "Email";
+    private static final String PHONE_NUMBER = "Телефон";
+    private static final String SKYPE = "Skype";
+    private static final String UNIT = "Подразделение";
+    private static final String LOCATION = "Локация";
+    private static final String COUNTRY = "Страна";
+    private static final String CITY = "Город";
+    private static final String OFFICE = "Офис";
+    private static final String ADDITIONAL_INFO = "Дополнительная информация";
+    private static final String BIRTH_DAY = "Дата Рождения";
+    private static final String SPECIALIZATION = "Специализация";
+    private static final String HIRING_DATE = "Дата приема";
+    private static final String PROBATION_DATE = "Дата ИС";
+    private static final String PROBATION_PERIOD_PASS = "ИС пройден";
+    private static final String WORK_STATION = "Рабочая станция";
+    private static final String COMMENT = "Комментарий";
     private WebDriver driver;
     private WebDriverWait driverWait;
     private WebElement mainTabBar;
@@ -46,7 +64,7 @@ public class ProfileMainPage extends Page {
 
     public ProfileMainPage(WebDriver driver) {
         this.driver = driver;
-        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driverWait = new WebDriverWait(driver, 5);
         tableMap = new HashMap<String, Map<String, WebElement>>();
         findAllElements();
@@ -73,6 +91,7 @@ public class ProfileMainPage extends Page {
         return new ProfileSettingPage(driver);
     }
 
+    //registration tables
     private void registerTable(WebElement table) {
         WebElement nameTable = table.findElement(By.xpath("thead/tr"));
         String titleTable = nameTable.getText();
@@ -85,6 +104,64 @@ public class ProfileMainPage extends Page {
         }
         tableMap.put(titleTable, cells);
     }
+    public String getTextFromEmail(){
+        return tableMap.get(CONTACT_INFO).get(EMAIL).getText();
+    }
+    public String getTextFromPhoneNumber(){
+        return tableMap.get(CONTACT_INFO).get(PHONE_NUMBER).getText();
+    }
+    public String getTextFromSkype(){
+        return tableMap.get(CONTACT_INFO).get(SKYPE).findElement(By.xpath("a")).getText();
+    }
+    public String getTextFromUnit(){
+        return tableMap.get(GENERAL_INFO).get(UNIT).getText();
+    }
+    public String getTextFromLocation(){
+        return tableMap.get(GENERAL_INFO).get(LOCATION).getText();
+    }
+    public String getTextFromCountry(){
+        return tableMap.get(GENERAL_INFO).get(COUNTRY).getText();
+    }
+    public String getTextFromCity(){
+        return tableMap.get(GENERAL_INFO).get(CITY).getText();
+    }
+    public String getTextFromOffice(){
+        return tableMap.get(GENERAL_INFO).get(OFFICE).getText();
+    }
+    public String getActivity(){
+        return  tableMap.get(GENERAL_INFO).get(ACTIVITY).findElement(By.xpath("div")).getAttribute("value");
+    }
+    public String getTextFromBirthDay(){
+        return tableMap.get(ADDITIONAL_INFO).get(BIRTH_DAY).getText();
+    }
+    public String getTextFromSpecialization(){
+        return tableMap.get(ADDITIONAL_INFO).get(SPECIALIZATION).getText();
+    }
+    public String getTextFromHiringDate(){
+        return tableMap.get(ADDITIONAL_INFO).get(HIRING_DATE).getText();
+    }
+    public String getTextFromProbationDate(){
+        return tableMap.get(ADDITIONAL_INFO).get(PROBATION_DATE).getText();
+    }
+    public String getTextFromProbationPeriodPass(){
+        return tableMap.get(ADDITIONAL_INFO).get(PROBATION_PERIOD_PASS).getText();
+    }
+    public String getTextFromWorkStation(){
+        return tableMap.get(ADDITIONAL_INFO).get(WORK_STATION).getText();
+    }
+    public String getTextFromComment(){
+        return tableMap.get(ADDITIONAL_INFO).get(COMMENT).getText();
+    }
+
+    public String getUserImageURL(){
+        return userImage.getAttribute("src");
+    }
+    public String getUserName(){
+        return usernameLabel.getText();
+    }
+
+
+
 
     public CalendarPopupPage setCalendarPopup() {
         tableMap.get(GENERAL_INFO).get(CALENDAR).findElement(By.xpath("a[1]")).click();
@@ -103,6 +180,6 @@ public class ProfileMainPage extends Page {
     }
 
     public String getFullName() {
-        return  usernameLabel.getText();
+        return usernameLabel.getText();
     }
 }

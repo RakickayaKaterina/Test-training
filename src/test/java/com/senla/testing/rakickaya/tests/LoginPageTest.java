@@ -14,7 +14,11 @@ import org.testng.annotations.Test;
 import static com.senla.testing.rakickaya.pages.LoginPage.URL_PAGE;
 
 public class LoginPageTest {
-    public static final String EMPTY_STRING = "";
+    private static final String EMPTY_STRING = "";
+    private static final String VALID_USER_NAME = "petia";
+    private static final String VALID_PASSWORD = "empl";
+    private static final String INVALID_PASSWORD = "randompass";
+    private static final String INVALID_NAME = "invalidName";
     private WebDriver driver;
 
     private LoginPage loginPage;
@@ -34,38 +38,38 @@ public class LoginPageTest {
 
     @Test
     public void loginPositive() {
-        loginPage.inputUserCredentials(new UserCredentials("petia", "empl"))
+        loginPage.inputUserCredentials(new UserCredentials(VALID_USER_NAME, VALID_PASSWORD))
                 .setSubmitButton();
     }
 
     @Test(expectedExceptions = TimeoutException.class)
     public void loginWithInvalidPassword() {
-        loginPage.inputUserCredentials(new UserCredentials("petia", "randompass"))
+        loginPage.inputUserCredentials(new UserCredentials(VALID_USER_NAME, INVALID_PASSWORD))
                 .setSubmitButton();
     }
 
     @Test(expectedExceptions = TimeoutException.class)
     public void loginWithInvalidUserName() {
-        loginPage.inputUserCredentials(new UserCredentials("invalidName", "empl"))
+        loginPage.inputUserCredentials(new UserCredentials(INVALID_NAME, VALID_PASSWORD))
                 .setSubmitButton();
     }
 
     @Test(expectedExceptions = TimeoutException.class)
     public void loginWithInvalidUsernameAndPassword() {
-        loginPage.inputUserCredentials(new UserCredentials("invalidName", "invalidPass"))
+        loginPage.inputUserCredentials(new UserCredentials(INVALID_NAME, INVALID_PASSWORD))
                 .setSubmitButton();
     }
 
     @Test(expectedExceptions = TimeoutException.class)
     public void loginWithoutUsername() {
-        loginPage.inputUserCredentials(new UserCredentials(EMPTY_STRING, "empl"))
+        loginPage.inputUserCredentials(new UserCredentials(EMPTY_STRING, VALID_PASSWORD))
                 .setSubmitButton();
 
     }
 
     @Test(expectedExceptions = TimeoutException.class)
     public void loginWithoutPassword() {
-        loginPage.inputUserCredentials(new UserCredentials("petia", EMPTY_STRING))
+        loginPage.inputUserCredentials(new UserCredentials(VALID_USER_NAME, EMPTY_STRING))
                 .setSubmitButton();
     }
 
@@ -77,14 +81,14 @@ public class LoginPageTest {
 
     @Test
     public void clearAll() {
-        boolean isEmptyField = loginPage.inputUserCredentials(new UserCredentials("invalidName", "invalidPass"))
+        boolean isEmptyField = loginPage.inputUserCredentials(new UserCredentials(INVALID_NAME, INVALID_PASSWORD))
                 .setClearButton().isFieldsEmpty();
         Assert.assertTrue(isEmptyField);
     }
 
     @Test
     public void loginWithRememberMeButton() {
-        loginPage.inputUserCredentials(new UserCredentials("petia", "empl"))
+        loginPage.inputUserCredentials(new UserCredentials(VALID_USER_NAME, VALID_PASSWORD))
                 .setRememberMeCheckBox().setSubmitButton();
         driver.get(URL_PAGE);
         Assert.assertEquals(driver.getCurrentUrl(), URL_PAGE + "#/vacation");
@@ -93,7 +97,7 @@ public class LoginPageTest {
 
     @Test
     public void loginWithoutRememberMeButton() {
-        loginPage.inputUserCredentials(new UserCredentials("petia", "empl"))
+        loginPage.inputUserCredentials(new UserCredentials(VALID_USER_NAME, VALID_PASSWORD))
                 .setSubmitButton();
         driver.get(URL_PAGE);
         Assert.assertEquals(driver.getCurrentUrl(), URL_PAGE + "#/login");
