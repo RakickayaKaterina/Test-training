@@ -1,6 +1,8 @@
 package com.senla.testing.rakickaya.pages;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,6 +14,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class ProfileSettingPage extends Page {
+
+    public static final Logger log = Logger.getLogger(ProfileSettingPage.class);
 
     private static final String MAIN_TAB_BAR_PATH = "#bs-example-navbar-collapse-1";
     private static final String CONTACT_INFO_TABLE_PATH = "div#main table:nth-child(1)";
@@ -33,6 +37,7 @@ public class ProfileSettingPage extends Page {
     private static final String SKYPE = "Skype";
 
     private static final String PROFILE = "Профиль";
+    public static final String CONTACT_INFO = "Контактная информация";
     private WebDriver driver;
     private WebDriverWait driverWait;
 
@@ -92,7 +97,7 @@ public class ProfileSettingPage extends Page {
     }
 
     public ProfileSettingPage inputName(String name) {
-        WebElement webElement = tableMap.get(PROFILE_INFO).get(NAME).findElement(By.xpath("input"));
+        WebElement webElement = tableMap.get(PROFILE_INFO).get(NAME).findElement(By.tagName("input"));
         webElement.clear();
         webElement.sendKeys(name);
         return this;
@@ -100,24 +105,23 @@ public class ProfileSettingPage extends Page {
     }
 
     public ProfileSettingPage inputMiddleName(String middleName) {
-        WebElement webElement = tableMap.get(PROFILE_INFO).get(MIDDLE_NAME).findElement(By.xpath("input"));
+        WebElement webElement = tableMap.get(PROFILE_INFO).get(MIDDLE_NAME).findElement(By.tagName("input"));
         webElement.clear();
         webElement.sendKeys(middleName);
         return this;
     }
 
     public ProfileSettingPage inputLastName(String lastName) {
-        WebElement webElement = tableMap.get(PROFILE_INFO).get(LAST_NAME).findElement(By.xpath("input"));
+        WebElement webElement = tableMap.get(PROFILE_INFO).get(LAST_NAME).findElement(By.tagName("input"));
         webElement.clear();
         webElement.sendKeys(lastName);
         return this;
     }
 
     public ProfileSettingPage inputBirthDate(String date) {
-        WebElement webElement = tableMap.get(PROFILE_INFO).get(BIRTH_DAY).findElement(By.xpath("input"));
-        webElement.clear();
-        webElement.sendKeys(date);
-        return this;
+       WebElement webElement = tableMap.get(PROFILE_INFO).get(BIRTH_DAY).findElement(By.tagName("input"));
+       webElement.clear();webElement.sendKeys(date);
+       return this;
     }
 
     //TODO Password
@@ -128,21 +132,21 @@ public class ProfileSettingPage extends Page {
     }
 
     public ProfileSettingPage inputEmail(String email) {
-        WebElement webElement = tableMap.get(PROFILE_INFO).get(EMAIL).findElement(By.xpath("input"));
+        WebElement webElement = tableMap.get(CONTACT_INFO).get(EMAIL).findElement(By.tagName("input"));
         webElement.clear();
         webElement.sendKeys(email);
         return this;
     }
 
     public ProfileSettingPage inputNumber(String numberPhone) {
-        WebElement webElement = tableMap.get(PROFILE_INFO).get(PHONE_NUMBER).findElement(By.xpath("input"));
+        WebElement webElement = tableMap.get(CONTACT_INFO).get(PHONE_NUMBER).findElement(By.tagName("input"));
         webElement.clear();
         webElement.sendKeys(numberPhone);
         return this;
     }
 
     public ProfileSettingPage inputSkype(String skype) {
-        WebElement webElement = tableMap.get(PROFILE_INFO).get(SKYPE).findElement(By.xpath("input"));
+        WebElement webElement = tableMap.get(CONTACT_INFO).get(SKYPE).findElement(By.tagName("input"));
         webElement.clear();
         webElement.sendKeys(skype);
         return this;
@@ -151,7 +155,11 @@ public class ProfileSettingPage extends Page {
 
     public ProfileMainPage followSettingLink() {
         settingLink.click();
-        driverWait.until(ExpectedConditions.textToBe(By.cssSelector(PROFILE_LABEL_PATH), PROFILE));
+        try {
+            driverWait.until(ExpectedConditions.textToBe(By.cssSelector(PROFILE_LABEL_PATH), PROFILE));
+        }catch (TimeoutException e){
+            log.error("The profile page hasn't started");
+        }
         return new ProfileMainPage(driver);
     }
 
@@ -162,11 +170,11 @@ public class ProfileSettingPage extends Page {
 
 
     public String getEmail() {
-        return tableMap.get(PROFILE_INFO).get(EMAIL).findElement(By.xpath("input")).getText();
+        return tableMap.get(CONTACT_INFO).get(EMAIL).findElement(By.tagName("input")).getText();
     }
 
     public String getDate() {
-        return tableMap.get(PROFILE_INFO).get(BIRTH_DAY).findElement(By.xpath("input")).getText();
+        return tableMap.get(PROFILE_INFO).get(BIRTH_DAY).findElement(By.tagName("input")).getText();
     }
 
 

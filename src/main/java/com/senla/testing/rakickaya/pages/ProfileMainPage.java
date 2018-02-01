@@ -1,6 +1,8 @@
 package com.senla.testing.rakickaya.pages;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,6 +14,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class ProfileMainPage extends Page {
+
+    public static final Logger log = Logger.getLogger(ProfileMainPage.class);
 
     public static final String ACTIVITY = "Активный";
     private static final String URL_PAGE = "http://86.57.161.116:10008/";
@@ -86,9 +90,12 @@ public class ProfileMainPage extends Page {
     }
 
     public ProfileSettingPage followSettingLink() {
-        settingLink.click();
-        driverWait.until(ExpectedConditions.textToBe(By.xpath(SETTING_LABEL_PATH), SETTING_LABEL_NAME));
-        return new ProfileSettingPage(driver);
+        try {
+            settingLink.click();
+            driverWait.until(ExpectedConditions.textToBe(By.xpath(SETTING_LABEL_PATH), SETTING_LABEL_NAME));
+        }catch (TimeoutException e){
+            log.error("Settings haven't started");
+        }return new ProfileSettingPage(driver);
     }
 
     //registration tables
@@ -164,8 +171,13 @@ public class ProfileMainPage extends Page {
 
 
     public CalendarPopupPage setCalendarPopup() {
-        tableMap.get(GENERAL_INFO).get(CALENDAR).findElement(By.xpath("a[1]")).click();
-        driverWait.until(ExpectedConditions.textToBe(By.xpath(CALENDAR_PATH), USER_CALENDAR_NAME));
+        try {
+            tableMap.get(GENERAL_INFO).get(CALENDAR).findElement(By.xpath("a[1]")).click();
+            driverWait.until(ExpectedConditions.textToBe(By.xpath(CALENDAR_PATH), USER_CALENDAR_NAME));
+        }catch (TimeoutException e){
+            log.error("Calendar pop-up hasn't started");
+        }
+
         return new CalendarPopupPage(driver);
     }
 

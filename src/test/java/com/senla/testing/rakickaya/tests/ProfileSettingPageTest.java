@@ -6,6 +6,7 @@ import com.senla.testing.rakickaya.pages.ProfileMainPage;
 import com.senla.testing.rakickaya.pages.ProfileSettingPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -38,7 +39,8 @@ public class ProfileSettingPageTest {
     public void initialize() {
         System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
         driver = new ChromeDriver();
-        profileSettingPage = new LoginPage(driver).inputUserCredentials(new UserCredentials("petia", "empl")).setSubmitButton().openProfile().followSettingLink();
+        LoginPage loginPage = PageFactory.initElements(driver,LoginPage.class);
+        profileSettingPage = loginPage.inputUserCredentials(new UserCredentials("petia", "empl")).setSubmitButton().openProfile().followSettingLink();
     }
 
     @Test

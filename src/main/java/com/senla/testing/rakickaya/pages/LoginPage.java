@@ -1,10 +1,8 @@
 package com.senla.testing.rakickaya.pages;
 
 import com.senla.testing.rakickaya.data.UserCredentials;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.log4j.Logger;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,7 +11,10 @@ import java.util.concurrent.TimeUnit;
 
 public class LoginPage extends Page {
 
+    public static final Logger log = Logger.getLogger(LoginPage.class);
+
     public final static String URL_PAGE = "http://86.57.161.116:10008/";
+
     private static final String LOGININPUT = "logininput";
     private static final String PASSWORDINPUT = "passwordinput";
     private static final String BUTTON_LOGIN = "buttonLogin";
@@ -38,8 +39,9 @@ public class LoginPage extends Page {
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
-        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         driver.get(URL_PAGE + "#/login");
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+
         driverWait = new WebDriverWait(driver, 5);
 
     }
@@ -56,8 +58,8 @@ public class LoginPage extends Page {
     }
 
     public VacationPage setSubmitButton() {
-        submitButton.click();
-        driverWait.until(ExpectedConditions.urlToBe(URL_PAGE + "#/vacation"));
+            submitButton.click();
+            driverWait.until(ExpectedConditions.urlToBe(URL_PAGE + "#/vacation"));
         return new VacationPage(driver);
 
     }
@@ -73,6 +75,7 @@ public class LoginPage extends Page {
             WebElement logo = driver.findElement(By.xpath(LOGO_PATH));
             return true;
         } catch (NoSuchElementException e) {
+            log.error("Logo isn't exist on the login page");
             return false;
         }
     }

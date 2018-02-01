@@ -14,6 +14,7 @@ public class VacationPage extends Page {
     private WebDriver driver;
     private WebDriverWait driverWait;
     private WebElement dropdownToggle;
+    private WebElement profileLink;
 
 
 
@@ -23,12 +24,13 @@ public class VacationPage extends Page {
         findAllElements();
     }
     public void findAllElements(){
-        dropdownToggle = driver.findElement(By.xpath("id(\"bs-example-navbar-collapse-1\")/ul[2]/li[2]/a[1]"));
+        dropdownToggle = driver.findElement(By.xpath("//*[@id=\"bs-example-navbar-collapse-1\"]/ul[2]/li[2]/a"));
+        profileLink = driver.findElement(By.xpath("//*[@id=\"bs-example-navbar-collapse-1\"]/ul[2]/li[2]/ul/li[1]/a"));
     }
 
     public ProfileMainPage openProfile(){
         dropdownToggle.click();
-        new Actions(driver).sendKeys(Keys.TAB).sendKeys(Keys.ENTER).build().perform();
+        profileLink.click();
         return  new ProfileMainPage(driver);
 
 
