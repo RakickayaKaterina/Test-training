@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="P:/TestTraining/src/test/java">
+        <classes>
+            <class name="com.senla.testing.rakickaya.tests.LoginPageTest">
+                <methods>
+                    <include name="findLogo"/>
+                    <include name="loginPositive"/>
+                    <include name="loginWithInvalidPassword"/>
+                    <include name="loginWithInvalidUserName"/>
+                    <include name="loginWithInvalidUsernameAndPassword"/>
+                    <include name="loginWithoutUsername"/>
+                    <include name="loginWithoutPassword"/>
+                    <include name="loginWithEmptyFields"/>
+                    <include name="clearAll"/>
+                    <include name="loginWithRememberMeButton"/>
+                    <include name="loginWithoutRememberMeButton"/>
+                </methods>
+            </class>
+            <class name="com.senla.testing.rakickaya.tests.ProfileMainPageTest">
+                <methods>
+                    <include name="followSettingPage"/>
+                    <include name="checkEmailText"/>
+                    <include name="checkPhoneNumber"/>
+                    <include name="checkSkype"/>
+                    <include name="checkUnit"/>
+                    <include name="checkLocation"/>
+                    <include name="checkCountry"/>
+                    <include name="checkCity"/>
+                    <include name="checkOffice"/>
+                    <include name="checkActivity"/>
+                    <include name="checkBirthDay"/>
+                    <include name="checkSpecialization"/>
+                    <include name="checkHiringDate"/>
+                    <include name="checkProbationDate"/>
+                    <include name="checkProbationPeriodPass"/>
+                    <include name="checkWorkStation"/>
+                    <include name="checkComment"/>
+                    <include name="checkUserImage"/>
+                    <include name="checkUserName"/>
+                    <include name="openCalendarPopUp"/>
+                </methods>
+            </class>
+            <class name="com.senla.testing.rakickaya.tests.ProfileSettingPageTest">
+                <methods>
+                    <include name="inputValidEmail"/>
+                    <include name="inputEmailWithoutCommercialAt"/>
+                    <include name="inputEmailWithoutDomainPart"/>
+                    <include name="inputEmailWithoutName"/>
+                    <include name="saveEmail"/>
+                    <include name="inputValidDate"/>
+                    <include name="inputInvalidDate"/>
+                    <include name="savePhoneNumber"/>
+                    <include name="saveSkype"/>
+                    <include name="inputEmptyName"/>
+                    <include name="inputEmptyLastName"/>
+                    <include name="saveName"/>
+                    <include name="saveMiddleName"/>
+                    <include name="saveLastName"/>
+                    <include name="openMainProfilePage"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
