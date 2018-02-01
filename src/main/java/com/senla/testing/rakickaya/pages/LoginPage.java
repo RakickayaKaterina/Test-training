@@ -15,6 +15,7 @@ public class LoginPage extends Page{
     public static final String BUTTON_LOGIN = "buttonLogin";
     public static final String BUTTON_RESET = "buttonReset";
     public static final String CHECKBOXES_REMEMBER = "checkboxesRemember-0";
+    public static final String LOGO_PATH = "//*[@id=\"main\"]/section/div/div/table/tbody/tr[1]/td/img";
 
     private WebDriver driver;
     private WebDriverWait driverWait;
@@ -66,7 +67,8 @@ public class LoginPage extends Page{
     }
     public boolean existLogo(){
       try {
-          WebElement logo = driver.findElement(By.xpath("id(\"main\")/section[1]/div[1]/div[1]/table[1]/tbody[1]/tr[1]/td[1]/img[1]"));
+          //
+          WebElement logo = driver.findElement(By.xpath(LOGO_PATH));
           return  true;
       }catch (NoSuchElementException e){
           return  false;
