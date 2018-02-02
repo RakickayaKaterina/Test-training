@@ -1,5 +1,6 @@
 package com.senla.testing.rakickaya.pages;
 
+import com.senla.testing.rakickaya.db.dbentities.Employee;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -8,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -190,7 +192,12 @@ public class ProfileMainPage extends Page {
     public String getTextFrom(String nameTable, String nameRow) {
         return tableMap.get(nameTable).get(nameRow).findElement(By.xpath("input")).getText();
     }
-
+    public String getFullNameFromDb(Employee employee){
+        String name = employee.getFirst_name();
+        String middleName = employee.getMiddle_name();
+        String lastName = employee.getLast_name();
+        return String.format("%s %s%s",name,middleName.isEmpty()? middleName : middleName+" ",lastName);
+    }
     public String getFullName() {
         return usernameLabel.getText();
     }

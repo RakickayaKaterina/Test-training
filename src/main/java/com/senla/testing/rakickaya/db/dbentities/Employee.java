@@ -25,7 +25,8 @@ public class Employee {
     private Integer reputation;
     private Date hire_date;
     private Date dismissal_date;
-    // private String rm_comment;
+    @Column(length = 65535,columnDefinition="Text")
+    private String rm_comment;
     private String workstation;
     private Date probation_till_date;
     private Boolean probation_approved;
@@ -45,6 +46,7 @@ public class Employee {
     }
 
     public String getFirst_name() {
+        if(first_name ==null) return "";
         return first_name;
     }
 
@@ -53,6 +55,7 @@ public class Employee {
     }
 
     public String getMiddle_name() {
+        if(middle_name == null) return "";
         return middle_name;
     }
 
@@ -61,6 +64,7 @@ public class Employee {
     }
 
     public String getLast_name() {
+        if(last_name == null) return "";
         return last_name;
     }
 
@@ -187,5 +191,13 @@ public class Employee {
 
     public void setSpecialization_fk(Specialization specialization_fk) {
         this.specialization_fk = specialization_fk;
+    }
+
+    public String getRm_comment() {
+        return rm_comment;
+    }
+
+    public void setRm_comment(String rm_comment) {
+        this.rm_comment = rm_comment;
     }
 }

@@ -111,10 +111,10 @@ public class ProfileMainPageTest {
         Assert.assertEquals(profileMainPage.getTextFromWorkStation(), employee.getWorkstation());
     }
 
-
-    //public void checkComment() {
-   //     Assert.assertEquals(profileMainPage.getTextFromComment(), EXPECTED_COMMENT);
-    //}
+    @Test
+    public void checkComment() {
+        Assert.assertEquals(profileMainPage.getTextFromComment(), employee.getRm_comment());
+    }
 
     @Test
     public void checkUserImage() {
@@ -123,7 +123,8 @@ public class ProfileMainPageTest {
 
     @Test
     public void checkUserName() {
-        Assert.assertEquals(profileMainPage.getUserName(), EXPECTED_USER_NAME);
+
+        Assert.assertEquals(profileMainPage.getUserName(), profileMainPage.getFullNameFromDb(employee));
     }
 
 
