@@ -41,7 +41,6 @@ public class LoginPage extends Page {
         this.driver = driver;
         driver.get(URL_PAGE + "#/login");
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-
         driverWait = new WebDriverWait(driver, 5);
 
     }

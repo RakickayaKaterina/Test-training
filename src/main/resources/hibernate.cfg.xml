@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://86.57.161.116:13306/danco_rmt_vacation</property>
+        <property name="hibernate.connection.username">aqa</property>
+        <property name="hibernate.connection.password">qwe123</property>
+        <property name="hibernate.connection.pool_size">1</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.show_sql">false</property>
+        <property name="hbm2ddl.auto">validate</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <mapping class="com.senla.testing.rakickaya.db.dbentities.Employee" />
+        <mapping class="com.senla.testing.rakickaya.db.dbentities.Location" />
+        <mapping class="com.senla.testing.rakickaya.db.dbentities.Specialization" />
+        <mapping class="com.senla.testing.rakickaya.db.dbentities.Unit" />
+    </session-factory>
+</hibernate-configuration>
