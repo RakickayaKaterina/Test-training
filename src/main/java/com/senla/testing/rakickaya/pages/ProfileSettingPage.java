@@ -60,8 +60,8 @@ public class ProfileSettingPage extends Page {
 
     public ProfileSettingPage(WebDriver driver) {
         this.driver = driver;
-        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
-        driverWait = new WebDriverWait(driver, 5);
+        driver.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
+        driverWait = new WebDriverWait(driver, 25);
         findAllElements();
         tableMap = new HashMap<String, Map<String, WebElement>>();
         registerTable(contactInfoTable);

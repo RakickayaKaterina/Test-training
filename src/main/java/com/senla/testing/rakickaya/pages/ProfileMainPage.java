@@ -70,8 +70,9 @@ public class ProfileMainPage extends Page {
 
     public ProfileMainPage(WebDriver driver) {
         this.driver = driver;
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driverWait = new WebDriverWait(driver, 5);
+        driver.get(URL_PAGE+"#/profile");
+        driver.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
+        driverWait = new WebDriverWait(driver, 10);
         tableMap = new HashMap<String, Map<String, WebElement>>();
         findAllElements();
 
