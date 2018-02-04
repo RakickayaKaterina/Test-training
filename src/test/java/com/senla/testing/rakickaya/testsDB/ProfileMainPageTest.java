@@ -16,19 +16,18 @@ import org.testng.annotations.Test;
 
 public class ProfileMainPageTest {
     private static final String EXPECTED_IMAGE_URL = "http://www.placehold.it/250x300/EFEFEF/AAAAAA&text=no+image";
-
-    private static final String EXPECTED_USER_NAME = "Petr Petrov";
     private WebDriver driver;
     private ProfileMainPage profileMainPage;
     private Employee employee;
 
     @BeforeClass
     public void initialize() {
-        System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "E:\\chromedriver.exe");
         driver = new ChromeDriver();
         LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
         profileMainPage = loginPage.inputUserCredentials(new UserCredentials("petia", "empl")).setSubmitButton().openProfile();
         employee = new DbService().getEmployee();
+
     }
 
     @Test

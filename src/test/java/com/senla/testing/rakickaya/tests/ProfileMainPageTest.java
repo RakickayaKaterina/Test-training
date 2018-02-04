@@ -36,7 +36,7 @@ public class ProfileMainPageTest {
 
     @BeforeClass
     public void initialize() {
-        System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "E:\\chromedriver.exe");
         driver = new ChromeDriver();
         LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
         profileMainPage = loginPage.inputUserCredentials(new UserCredentials("petia", "empl")).setSubmitButton().openProfile();

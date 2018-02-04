@@ -23,4 +23,10 @@ public class DbService {
         }
         return empl;
     }
+    public void updateEmployee(Employee employee){
+         try (Session session = sessionFactory.openSession()){
+            session.update(employee);
+        }
+
+    }
 }

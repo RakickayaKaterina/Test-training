@@ -74,7 +74,7 @@ public class LoginPage extends Page {
             WebElement logo = driver.findElement(By.xpath(LOGO_PATH));
             return true;
         } catch (NoSuchElementException e) {
-            log.error("Logo isn't exist on the login page");
+            log.error("Logo isn't exist on the loxgin page");
             return false;
         }
     }

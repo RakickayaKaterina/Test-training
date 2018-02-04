@@ -89,6 +89,7 @@ public class ProfileMainPage extends Page {
         registerTable(contactInfoTable);
         registerTable(generalInfoTable);
         registerTable(additionalInfoTable);
+
     }
 
     public ProfileSettingPage followSettingLink() {
@@ -201,4 +202,5 @@ public class ProfileMainPage extends Page {
     public String getFullName() {
         return usernameLabel.getText();
     }
+
 }

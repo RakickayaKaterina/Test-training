@@ -1,6 +1,8 @@
 package com.senla.testing.rakickaya.testsDB;
 
 import com.senla.testing.rakickaya.data.UserCredentials;
+import com.senla.testing.rakickaya.db.dbentities.Employee;
+import com.senla.testing.rakickaya.db.dbservices.DbService;
 import com.senla.testing.rakickaya.pages.LoginPage;
 import com.senla.testing.rakickaya.pages.ProfileMainPage;
 import com.senla.testing.rakickaya.pages.ProfileSettingPage;
@@ -34,13 +36,15 @@ public class ProfileSettingPageTest {
     private static final String VALID_LAST_NAME = "Rakickaya";
     private WebDriver driver;
     private ProfileSettingPage profileSettingPage;
+    private Employee employee;
 
     @BeforeClass
     public void initialize() {
-        System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "E:\\chromedriver.exe");
         driver = new ChromeDriver();
         LoginPage loginPage = PageFactory.initElements(driver,LoginPage.class);
         profileSettingPage = loginPage.inputUserCredentials(new UserCredentials("petia", "empl")).setSubmitButton().openProfile().followSettingLink();
+        employee = new DbService().getEmployee();
     }
 
     @Test
